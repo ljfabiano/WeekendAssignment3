@@ -38,19 +38,17 @@ public class ConnectionHandler implements Runnable{
             PrintWriter outputToClient = new PrintWriter(this.connection.getOutputStream(), true);
 
             // read from the input until the client disconnects
-            //On the server side, make sure the first message that each client sends is their name using a message structure like this: name=name-of-client
+            //On the server side, make sure the first message that each client sends is their name using a message structure
+            //like this: name=name-of-client
            name = inputFromClient.readLine();
             System.out.println(name);
             inputStringArray = name.split("=");
             if(inputStringArray[0].equals("name"))
             {
-                //outputToClient.println("ok");
-                //inputStringArray = inputFromClient.readLine().split("=");
-                //name = inputStringArray[1];
+
                 outputToClient.println("I have your name. Speak, human.");
                 while ((inputLine = inputFromClient.readLine()) != null) {
-                    System.out.println(name + " says: " + inputLine);
-                    //outputToClient.println("Message received loud and clear");
+                    System.out.println(inputStringArray[1] + " says: " + inputLine);
                 }
 
             }
@@ -58,13 +56,6 @@ public class ConnectionHandler implements Runnable{
             {
                 outputToClient.println("Your initial message did not begin with \"name=\". I don't know who you are, sorry.");
             }
-            //String inputLine;
-
-//            while ((inputLine = inputFromClient.readLine()) != null) {
-//                System.out.println("Received message: " + inputLine + " from " + connection.toString());
-//                outputToClient.println("Message received loud and clear");
-//            }
-
 
         } catch (IOException ioe) {
             ioe.printStackTrace();
