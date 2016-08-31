@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  * Created by jfabiano on 8/26/2016.
@@ -26,6 +27,7 @@ public class ConnectionHandler implements Runnable{
 
         {
             String[] inputStringArray;//[1] = username
+            ArrayList<String> aList = new ArrayList<String>();
             String name;
             String inputLine;
             // start a server on a specific port. This is what needs to happen in a thread
@@ -40,7 +42,7 @@ public class ConnectionHandler implements Runnable{
             // read from the input until the client disconnects
             //On the server side, make sure the first message that each client sends is their name using a message structure
             //like this: name=name-of-client
-           name = inputFromClient.readLine();
+            name = inputFromClient.readLine();
             System.out.println(name);
             inputStringArray = name.split("=");
             if(inputStringArray[0].equals("name"))
@@ -48,7 +50,22 @@ public class ConnectionHandler implements Runnable{
 
                 outputToClient.println("I have your name. Speak, human.");
                 while ((inputLine = inputFromClient.readLine()) != null) {
-                    System.out.println(inputStringArray[1] + " says: " + inputLine);
+                    if (inputLine.equals("history")) {
+                        //aList.add(inputLine);
+                        //add a sys out to see what is actually happening here in the aList
+                        System.out.println("Before sending the list I have: " + aList);
+                        outputToClient.println(aList);//working on the 1st extra for the weekend assignment.
+                        //Not working quite right. The array of strings is not showing the latest addition to it in the printout.
+
+                    }
+                    else {
+                        System.out.println("Before adding the new piece I have: " + aList);
+                        aList.add(inputLine);
+                        System.out.println("After adding the new piece I have: " + aList);
+                        System.out.println(inputStringArray[1] + " says: " + inputLine);
+
+                    }
+
                 }
 
             }

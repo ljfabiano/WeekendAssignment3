@@ -39,13 +39,38 @@ public class Client {
 
                 while(true)
                 {
-                    System.out.println("Go ahead and type messages(type \"exit\" to exit).");
-                    input = consoleInput.nextLine();
-                    if (input.equals("exit"))
+                    //if (in.ready() == false) {
+//                    if (input.equals("history")) {
+//                        while(!in.ready()) {
+//                            if(in.ready())
+//                            {
+//                                System.out.println("History of messages you have sent:\n" + in.readLine());
+//                                break;
+//                            }
+//                        }
+//                        //System.out.println("History of messages you have sent:\n" + in.readLine());
+//                    }
+
+                        System.out.println("Go ahead and type messages(type \"exit\" to exit or \"history\" to get all the messages you have sent).");
+                        input = consoleInput.nextLine();
+                        if (input.equals("exit")) {
+                            break;
+                        }
+                        if (input.equals("history")) {
+                            out.println(input);
+                            //in.skip();
+                            System.out.println("History of messages you have sent: " + in.readLine());
+                        }else {
+                            out.println(input);
+                        }
+                    //}else if (in.ready() == true)
                     {
-                        break;
+                        //System.out.println("History of messages you have sent:\n" + in.readLine());
                     }
-                    out.println(input);
+//                    if (in.ready() == true)
+//                    {
+//                        System.out.println("History:\n" + in.readLine());
+//                    }
                 }
                 //if the server/client is waiting for a input from the other the stream is blocked. always have a closed loop for the back and
                 //forth between the server and the client.
@@ -77,6 +102,6 @@ public class Client {
         {
             e.printStackTrace();
         }
-        
+
     }
 }
